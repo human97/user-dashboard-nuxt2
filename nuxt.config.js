@@ -51,9 +51,16 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: '#FFFFFF',
-          secondary: '#EEEEEE',
+          primary: '#FFD166',    
+          secondary: '#EEEEEE', 
           accent: '#FFD166',
+          anchor: '#000000',   
+        },
+        dark: {
+          primary: '#FFD166',
+          secondary: '#424242',
+          accent: '#FFD166',
+          anchor: '#FFD166',
         }
       }
     }
