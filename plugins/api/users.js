@@ -45,5 +45,14 @@ export default {
       users.push(generateUser(offset + i));
     }
     return users;
+  },
+
+  async get(id) {
+    await sleep(100);
+    const numericId = parseInt(id.slice(-4), 10);
+    if (isNaN(numericId) || numericId >= 8000) {
+      return null;
+    }
+    return generateUser(numericId);
   }
 };
