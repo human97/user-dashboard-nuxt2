@@ -60,6 +60,11 @@
 <script>
 import UserList from '~/components/UserList.vue'
 
+const ITEMS_PER_PAGE = 50;
+const TOTAL_USERS_TO_LOAD = 8000;
+const INITIAL_LOAD_LIMIT = 100;
+const SUBSEQUENT_LOAD_LIMIT = 500;
+
 export default {
   name: 'UsersPage',
   components: {
@@ -72,26 +77,23 @@ export default {
       allCities: [],
       selectedCities: [],
       page: 1,
-      itemsPerPage: 50,
+      itemsPerPage: ITEMS_PER_PAGE,
     }
   },
   async fetch() {
     this.users = []
-    const totalUsersToLoad = 8000
-    const firstLoadLimit = 100
-    const subsequentLoadLimit = 500
 
     let loadedUsers = await this.$api.users.list({
       offset: 0,
-      limit: firstLoadLimit,
+      limit: INITIAL_LOAD_LIMIT,
     })
     this.users.push(...loadedUsers)
 
-    let offset = firstLoadLimit
+    let offset = INITIAL_LOAD_LIMIT
 
     const promises = []
-    while (offset < totalUsersToLoad) {
-      const limit = Math.min(subsequentLoadLimit, totalUsersToLoad - offset)
+    while (offset < TOTAL_USERS_TO_LOAD) {
+      const limit = Math.min(SUBSEQUENT_LOAD_LIMIT, TOTAL_USERS_TO_LOAD - offset)
       promises.push(this.$api.users.list({ offset, limit }))
       offset += limit
     }
@@ -106,22 +108,21 @@ export default {
   },
   computed: {
     filteredUsers() {
-      let users = this.users
+      return this.users.filter(user => {
+        const cityMatch = !this.selectedCities.length || this.selectedCities.includes(user.city.title);
 
-      if (this.selectedCities.length > 0) {
-        users = users.filter(user => this.selectedCities.includes(user.city.title))
-      }
+        if (!this.search) {
+          return cityMatch;
+        }
 
-      if (this.search) {
-        const searchTerm = this.search.toLowerCase()
-        const searchPhone = this.search.replace(/\D/g, '')
-        users = users.filter(user =>
-          user.name.toLowerCase().includes(searchTerm) ||
-          (searchPhone && user.phone.replace(/\D/g, '').includes(searchPhone))
-        )
-      }
+        const searchTerm = this.search.toLowerCase();
+        const searchPhone = this.search.replace(/\D/g, '');
 
-      return users
+        const nameMatch = user.name.toLowerCase().includes(searchTerm);
+        const phoneMatch = searchPhone && user.phone.replace(/\D/g, '').includes(searchPhone);
+
+        return cityMatch && (nameMatch || phoneMatch);
+      });
     },
     pageCount() {
       return Math.ceil(this.filteredUsers.length / this.itemsPerPage)
