@@ -114,9 +114,10 @@ export default {
 
       if (this.search) {
         const searchTerm = this.search.toLowerCase()
+        const searchPhone = this.search.replace(/\D/g, '')
         users = users.filter(user =>
           user.name.toLowerCase().includes(searchTerm) ||
-          user.phone.replace(/\D/g, '').includes(searchTerm.replace(/\D/g, ''))
+          (searchPhone && user.phone.replace(/\D/g, '').includes(searchPhone))
         )
       }
 
