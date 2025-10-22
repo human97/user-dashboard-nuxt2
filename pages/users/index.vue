@@ -82,9 +82,6 @@ export default {
       itemsPerPage: ITEMS_PER_PAGE,
     }
   },
-  created() {
-    this.debouncedSearch = this.search
-  },
   async fetch() {
     this.users = []
 
