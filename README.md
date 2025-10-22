@@ -1,5 +1,15 @@
 # user-dashboard-nuxt
 
+This is a user management dashboard application built with Vue 2, Nuxt.js 2, and Vuetify. The project is designed to be responsive for both desktop and mobile versions.
+
+The main feature is the `/users` page, which displays a paginated list of 8000 simulated users. It includes functionality for searching by name and phone number with a `debounce` mechanism to optimize performance, as well as filtering by city. The application features a collapsible sidebar, a dark/light theme toggle, and simulates network latency when fetching user data. SCSS is used for styling, following a structured approach. The project is configured to run in Nuxt's Universal (SSR) mode.
+
+---
+
+Это приложение-панель для управления пользователями, созданное с использованием Vue 2, Nuxt.js 2 и Vuetify. Проект разработан с адаптивным дизайном для десктопной и мобильной версий.
+
+Основной функционал сосредоточен на странице `/users`, где отображается список из 8000 симулированных пользователей с пагинацией. Реализован поиск по имени и номеру телефона с использованием механизма `debounce` для оптимизации производительности, а также фильтрация по городу. Приложение включает в себя сворачиваемую боковую панель, переключатель темной/светлой темы и имитирует задержку сети при загрузке данных о пользователях. Для стилизации используется SCSS со структурированным подходом. Проект настроен для работы в режиме Universal (SSR) Nuxt.
+
 ## Build Setup
 
 ```bash
