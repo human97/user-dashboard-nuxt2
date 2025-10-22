@@ -59,6 +59,7 @@
 
 <script>
 import UserList from '~/components/UserList.vue'
+import debounce from 'lodash.debounce'
 
 const ITEMS_PER_PAGE = 50;
 const TOTAL_USERS_TO_LOAD = 8000;
@@ -74,11 +75,15 @@ export default {
     return {
       users: [],
       search: '',
+      debouncedSearch: '',
       allCities: [],
       selectedCities: [],
       page: 1,
       itemsPerPage: ITEMS_PER_PAGE,
     }
+  },
+  created() {
+    this.debouncedSearch = this.search
   },
   async fetch() {
     this.users = []
@@ -111,12 +116,12 @@ export default {
       return this.users.filter(user => {
         const cityMatch = !this.selectedCities.length || this.selectedCities.includes(user.city.title);
 
-        if (!this.search) {
+        if (!this.debouncedSearch) {
           return cityMatch;
         }
 
-        const searchTerm = this.search.toLowerCase();
-        const searchPhone = this.search.replace(/\D/g, '');
+        const searchTerm = this.debouncedSearch.toLowerCase();
+        const searchPhone = this.debouncedSearch.replace(/\D/g, '');
 
         const nameMatch = user.name.toLowerCase().includes(searchTerm);
         const phoneMatch = searchPhone && user.phone.replace(/\D/g, '').includes(searchPhone);
@@ -134,9 +139,10 @@ export default {
     },
   },
   watch: {
-    search() {
+    search: debounce(function (newVal) {
+      this.debouncedSearch = newVal
       this.page = 1
-    },
+    }, 500),
     selectedCities() {
       this.page = 1
     },
