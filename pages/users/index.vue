@@ -9,10 +9,9 @@
             v-model="search"
             label="Поиск по имени или телефону"
             prepend-inner-icon="mdi-magnify"
+            outlined
             dense
             hide-details
-            clearable
-            outlined
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="6">
@@ -21,14 +20,11 @@
             :items="allCities"
             label="Фильтр по городам"
             multiple
+            outlined
             dense
             hide-details
             chips
             deletable-chips
-            clearable
-            :menu-props="{ offsetY: true, attach: true }"
-            class="city-select-overflow"
-            outlined
           ></v-select>
         </v-col>
       </v-row>
@@ -151,13 +147,15 @@ export default {
 }
 </script>
 
-<style scoped>
-.city-select-overflow::v-deep .v-select__selections {
-  flex-wrap: nowrap;
-  overflow: hidden;
-}
+<style lang="scss" scoped>
+.city-select-overflow {
+  :deep(.v-select__selections) {
+    flex-wrap: nowrap;
+    overflow: hidden;
 
-.city-select-overflow::v-deep .v-select__selections .v-chip {
-  flex-shrink: 0;
+    .v-chip {
+      flex-shrink: 0;
+    }
+  }
 }
 </style>
