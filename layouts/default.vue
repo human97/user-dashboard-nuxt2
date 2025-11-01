@@ -27,7 +27,9 @@
     </v-navigation-drawer>
 
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+        <v-icon>{{ drawer ? 'mdi-close' : 'mdi-menu' }}</v-icon>
+      </v-app-bar-nav-icon>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn icon @click="toggleTheme">
