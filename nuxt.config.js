@@ -51,10 +51,10 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: '#FFD166',    
-          secondary: '#EEEEEE', 
+          primary: '#FFFFFF',
+          secondary: '#EEEEEE',
           accent: '#FFD166',
-          anchor: '#000000',   
+          anchor: '#000000',
         },
         dark: {
           primary: '#FFD166',
