@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h1 class="mb-4">Пользователи</h1>
+    <h1 class="mb-4 text--primary">Пользователи</h1>
 
     <v-card class="mb-4 pa-4">
       <v-row>
@@ -12,6 +12,7 @@
             outlined
             dense
             hide-details
+            clearable
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="6">
@@ -25,6 +26,9 @@
             hide-details
             chips
             deletable-chips
+            clearable
+            :menu-props="{ offsetY: true, attach: true }"
+            class="city-select-overflow"
           ></v-select>
         </v-col>
       </v-row>
