@@ -15,6 +15,7 @@
           :to="item.to"
           router
           exact
+          @click="handleItemClick(item)"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -55,7 +56,7 @@ export default {
   data() {
     return {
       clipped: true,
-      drawer: true,
+      drawer: false,
       fixed: false,
       items: [
         {
@@ -64,7 +65,7 @@ export default {
           to: '/users',
         },
       ],
-      miniVariant: false,
+      miniVariant: true,
       title: 'User Dashboard',
     }
   },
@@ -76,6 +77,11 @@ export default {
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    handleItemClick(item) {
+      if (item.title === 'Users') {
+        this.miniVariant = !this.miniVariant
+      }
     },
   },
 }
