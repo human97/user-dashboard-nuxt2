@@ -13,6 +13,7 @@
             dense
             hide-details
             clearable
+            :color="focusColor"
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="6">
@@ -29,6 +30,8 @@
             clearable
             :menu-props="{ offsetY: true, attach: true }"
             class="city-select-overflow"
+            :color="focusColor"
+            :item-color="focusColor"
           ></v-select>
         </v-col>
       </v-row>
@@ -113,6 +116,9 @@ export default {
     this.allCities = [...new Set(cityTitles)].sort()
   },
   computed: {
+    focusColor() {
+      return this.$vuetify.theme.dark ? 'primary' : 'black'
+    },
     filteredUsers() {
       return this.users.filter(user => {
         const cityMatch = !this.selectedCities.length || this.selectedCities.includes(user.city.title);
