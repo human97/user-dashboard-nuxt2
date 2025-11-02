@@ -10,6 +10,16 @@ body {
   .v-pagination .v-pagination__item--active {
     background: #000000 !important;
   }
+
+  .v-input--is-focused {
+    fieldset {
+      border-color: #000000 !important;
+    }
+    .v-label,
+    .v-icon {
+      color: #000000 !important;
+    }
+  }
 }
 
 h1 {
