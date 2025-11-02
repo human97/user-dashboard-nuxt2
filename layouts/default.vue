@@ -10,8 +10,8 @@
     >
       <v-list>
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
+          v-for="item in items"
+          :key="item.to"
           :to="item.to"
           router
           exact
